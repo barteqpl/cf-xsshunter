@@ -1,0 +1,22 @@
+{
+  "name": "xsshunter-worker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply xsshunter-d1 --local",
+    "db:remote": "wrangler d1 migrations apply xsshunter-d1 --remote",
+    "types": "wrangler types"
+  },
+  "dependencies": {
+    "hono": "^4.7.7",
+    "jose": "^6.0.10",
+    "mustache": "^4.2.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250410.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.0.0"
+  }
+}

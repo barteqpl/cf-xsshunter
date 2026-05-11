@@ -1,0 +1,30 @@
+name = "xsshunter"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+workers_dev = false
+compatibility_flags = ["nodejs_compat"]
+
+rules = [
+  { type = "Text", globs = ["**/*.txt"], fallthrough = true }
+]
+
+[vars]
+XSS_HOSTNAME = "your-domain.com"
+SSL_CONTACT_EMAIL = "admin@your-domain.com"
+BLUR_SCREENSHOTS = "false"
+
+[placement]
+mode = "smart"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "xsshunter-d1"
+database_id = "your-database-id"
+
+[[r2_buckets]]
+binding = "SCREENSHOTS"
+bucket_name = "xsshunter-screenshots"
+
+[[routes]]
+pattern = "your-domain.com"
+custom_domain = true

@@ -1,14 +1,41 @@
-*.env
-node_modules
-*.bak
-postgres-db-data/*
-dev.sh
+# OS
 .DS_Store
-front-end/run.sh
-.greenlockrc
+Thumbs.db
+
+# Env / secrets
+.env
+.env.*
+config.env
+workers/.dev.vars
+
+# Dependencies
+node_modules/
+workers/node_modules/
+
+# Build / output
+dist/
+workers/dist/
+front-end/dist/
+
+# Wrangler / Cloudflare
+.wrangler/
+workers/.wrangler/
+workers/worker-configuration.d.ts
+workers/bun.lock
+
+# Original XSS Hunter Express local data
+postgres-db-data/*
 greenlock.d/*
 ssldata/*
-config.env
 payload-fire-images/*.gz
 payload-fire-images/*.png
+
+# Scripts
+dev.sh
 deploy.sh
+front-end/run.sh
+
+# Other
+*.bak
+.greenlockrc
+test.txt
