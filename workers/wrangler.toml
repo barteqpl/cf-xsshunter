@@ -12,6 +12,8 @@ rules = [
 XSS_HOSTNAME = "your-domain.com"
 SSL_CONTACT_EMAIL = "admin@your-domain.com"
 BLUR_SCREENSHOTS = "false"
+EMAIL_FROM = "xsshunter@your-domain.com"
+EMAIL_NOTIFICATIONS_ENABLED = "true"
 
 [placement]
 mode = "smart"
