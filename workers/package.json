@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "build": "wrangler deploy --dry-run",
     "db:migrate": "wrangler d1 migrations apply xsshunter-d1 --local",
     "db:remote": "wrangler d1 migrations apply xsshunter-d1 --remote",
     "types": "wrangler types"
