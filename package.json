@@ -1,45 +1,14 @@
 {
-  "name": "xsshunter-express",
+  "name": "xsshunter",
   "version": "1.0.0",
-  "description": "Simplified and easy-to-setup version of XSS Hunter for self-hosting.",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "test": "jest",
-    "start": "node server.js",
-    "db:makemigrations": "./node_modules/sequelize-auto-migrations/bin/makemigration.js"
+    "deploy": "npx wrangler versions upload"
   },
-  "author": "mandatory (Matthew Bryant)",
-  "license": "MIT",
   "dependencies": {
-    "@deveodk/vue-toastr": "^1.1.0",
-    "@google-cloud/storage": "^6.9.0",
-    "@sendgrid/mail": "^7.7.0",
-    "@sentry/node": "^7.34.0",
-    "@sentry/profiling-node": "^0.0.12",
-    "@sentry/tracing": "^7.34.0",
-    "@truffledustin/node-client-sessions": "^0.8.0",
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.20.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-jsonschema": "^1.1.6",
-    "google-auth-library": "^8.7.0",
-    "googleapis": "^110.0.0",
-    "keygrip": "^1.1.0",
-    "memorystore": "^1.6.6",
-    "moment": "^2.29.1",
-    "multer": "^1.4.5-lts.1",
-    "mustache": "^4.1.0",
-    "nodemailer": "^6.5.0",
-    "pg": "^8.5.1",
-    "safe-compare": "^1.1.4",
-    "sequelize": "^6.29.0",
-    "serve-favicon": "^2.5.0",
-    "uuid": "^8.3.2",
-    "openpgp": "^5.5.0",
-    "vue-moment": "^4.1.0"
-  },
-  "devDependencies": {
-    "jest": "^29.4.1"
+    "hono": "^4.7.7",
+    "jose": "^6.0.10",
+    "mimetext": "^3.0.28",
+    "mustache": "^4.2.0"
   }
 }

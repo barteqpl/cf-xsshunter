@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "build": "wrangler deploy --dry-run",
     "db:migrate": "wrangler d1 migrations apply xsshunter-d1 --local",
     "db:remote": "wrangler d1 migrations apply xsshunter-d1 --remote",
     "types": "wrangler types"
@@ -12,10 +13,12 @@
   "dependencies": {
     "hono": "^4.7.7",
     "jose": "^6.0.10",
+    "mimetext": "^3.0.28",
     "mustache": "^4.2.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250410.0",
+    "@cloudflare/workers-types": "^4.20260511.1",
+    "@types/mustache": "^4.2.6",
     "typescript": "^5.8.3",
     "wrangler": "^4.0.0"
   }
