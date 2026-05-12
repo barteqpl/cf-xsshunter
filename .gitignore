@@ -22,6 +22,8 @@ front-end/dist/
 workers/.wrangler/
 workers/worker-configuration.d.ts
 workers/bun.lock
+wrangler.toml
+workers/wrangler.toml
 
 # Original XSS Hunter Express local data
 postgres-db-data/*
