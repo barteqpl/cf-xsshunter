@@ -3,16 +3,17 @@ import { cors } from 'hono/cors'
 import { sign, verify } from 'hono/jwt'
 import { getCookie, setCookie, deleteCookie } from 'hono/cookie'
 import Mustache from 'mustache'
+import { EmailMessage } from 'cloudflare:email'
 import probeJs from './probe.txt'
 
 type Bindings = {
   DB: D1Database
   SCREENSHOTS: R2Bucket
+  SEB: SendEmail
   JWT_SECRET: string
   XSS_HOSTNAME: string
   GOOGLE_CLIENT_ID: string
   GOOGLE_CLIENT_SECRET: string
-  SENDGRID_API_KEY: string
   EMAIL_FROM: string
   EMAIL_NOTIFICATIONS_ENABLED: string
   SSL_CONTACT_EMAIL: string
@@ -518,7 +519,7 @@ async function sendAlert(c: any, user: any, pid: string, sid: string, encrypted:
   const fireLocation = encrypted ? 'With An Encryption Key' : (fd.get('uri') as string || 'unknown')
 
   // Fetch the payload and correlation data from DB
-  const pf = await c.env.DB.prepare('SELECT * FROM payload_fire_results WHERE id = ?').bind(pid).first<any>()
+  const pf = await c.env.DB.prepare('SELECT * FROM payload_fire_results WHERE id = ?').bind(pid).first() as any
   if (!pf) return
 
   let correlatedReq = 'No correlated request found for this injection.'
@@ -526,7 +527,7 @@ async function sendAlert(c: any, user: any, pid: string, sid: string, encrypted:
   if (injKey) {
     const corr = await c.env.DB.prepare(
       'SELECT request FROM injection_requests WHERE injection_key = ?'
-    ).bind(injKey).first<any>()
+    ).bind(injKey).first() as any
     if (corr) correlatedReq = corr.request
   }
 
@@ -568,21 +569,26 @@ async function sendAlert(c: any, user: any, pid: string, sid: string, encrypted:
 </body></html>`
 
   const html = Mustache.render(tmpl, view)
+  const subject = `[XSS Hunter Express] XSS Payload Fired On ${fireLocation}`
 
   try {
-    await fetch('https://api.sendgrid.com/v3/mail/send', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${c.env.SENDGRID_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        personalizations: [{ to: [{ email: user.email }] }],
-        from: { email: c.env.EMAIL_FROM },
-        subject: `[XSS Hunter Express] XSS Payload Fired On ${fireLocation}`,
-        content: [{ type: 'text/html', value: html }],
-      }),
+    const { createMimeMessage } = await import('mimetext')
+    const msg = createMimeMessage()
+    msg.setSender({ addr: c.env.EMAIL_FROM })
+    msg.setRecipient(user.email)
+    msg.setSubject(subject)
+    msg.addMessage({
+      contentType: 'text/html',
+      data: html
     })
+
+    const message = new EmailMessage(
+      c.env.EMAIL_FROM,
+      user.email,
+      msg.asRaw()
+    )
+
+    await c.env.SEB.send(message)
   } catch (e) {
     console.error('Email send failed:', e)
   }

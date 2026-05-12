@@ -16,6 +16,10 @@ BLUR_SCREENSHOTS = "false"
 [placement]
 mode = "smart"
 
+send_email = [
+  { name = "SEB" }
+]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "xsshunter-d1"
