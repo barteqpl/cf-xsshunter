@@ -4,6 +4,8 @@ XSS Hunter rewritten from the ground up to run entirely on **Cloudflare Workers*
 
 This allows you to host your own highly scalable, serverless XSS Hunter instance with **zero maintenance and effectively zero cost** (fits comfortably in Cloudflare's free tier).
 
+> **Note:** Email notifications require the **Workers Paid** plan. The free plan supports all other features (D1, R2, the web panel).
+
 ## What is this?
 The original [XSS Hunter Express](https://github.com/mandatoryprogrammer/xsshunter-express) was a Node.js monolithic application utilizing Express, PostgreSQL, Sequelize, and various other dependencies. This fork completely refactors the application to be serverless:
 - **Cloudflare Workers** (Compute) replaces Node.js / Express
@@ -18,7 +20,7 @@ The original [XSS Hunter Express](https://github.com/mandatoryprogrammer/xsshunt
 - **No maintenance**: Forget about managing Docker containers, Linux servers, database backups, or memory limits.
 - **Full Page Screenshots**: Captures the vulnerable page just like the original XSS Hunter.
 - **Correlated Injections**: Understand what exact injection attempt triggered a payload.
-- **Email Notifications**: Native integration with Cloudflare Email Routing to receive payload fires in your inbox.
+- **Email Notifications**: Native integration with Cloudflare Email Routing to receive payload fires in your inbox. *(Requires Workers Paid plan — the `send_email` binding is not available on the free tier.)*
 - **Google OAuth Login**: Easy and secure authentication using your Google Workspace / Gmail account.
 
 ## Environment Variables

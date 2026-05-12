@@ -65,6 +65,8 @@ Navigate to the `workers/` directory and configure the variables.
 
 ## Step 5: (Optional) Cloudflare Email Routing Setup
 
+> **⚠️ Workers Paid plan required:** The `send_email` binding used by XSS Hunter is only available on the Workers Paid plan. Email notifications will not work on the free tier.
+
 If you want to receive email notifications when a payload fires, configure Cloudflare Email Routing.
 
 1. Go to the Cloudflare Dashboard -> Your Domain -> **Email** -> **Email Routing**.
